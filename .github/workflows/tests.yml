@@ -43,6 +43,11 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress
 
+      - name: Write private key file
+        run: |
+          echo "${{ secrets.OCI_KEY_VALUE }}" > ./private_key.pem
+          chmod 600 ./private_key.pem
+
       - name: Run test suite
         run: vendor/bin/phpunit --color tests/
         env:
